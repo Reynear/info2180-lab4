@@ -60,13 +60,36 @@ $superheroes = [
       "name" => "Wanda Maximoff",
       "alias" => "Scarlett Witch",
       "biography" => "Notably powerful, Wanda Maximoff has fought both against and with the Avengers, attempting to hone her abilities and do what she believes is right to help the world.",
-  ], 
+  ],
 ];
 
 ?>
 
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+<?php
+$queryRaw = $_GET['query'] ?? null;
+$query = is_string($queryRaw) ? trim($queryRaw) : null;
+$querySafe = $query !== null ? htmlspecialchars($query, ENT_QUOTES, 'UTF-8') : null;
+$found = false;
+?>
+<?php if ($querySafe): ?>
+    <?php foreach ($superheroes as $superhero): ?>
+        <?php if (strcasecmp($querySafe, $superhero['name']) === 0 || strcasecmp($querySafe, $superhero['alias']) === 0): ?>
+            <?php $found = true; ?>
+            <h3><?= $superhero['alias']; ?></h3>
+            <h4><?= $superhero['name']; ?></h4>
+            <p><?= $superhero['biography'] ?></p>
+            <?php break; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php if (!$found): ?>
+        <p class="not-found">Superhero not found</p>
+    <?php endif; ?>
+
+<?php else: ?>
+    <ul>
+    <?php foreach ($superheroes as $superhero): ?>
+        <li><?= $superhero['alias']; ?></li>
+    <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+

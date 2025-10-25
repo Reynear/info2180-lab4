@@ -4,16 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Superhero Search</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>Avengers Character Search</h1>
+    <header class="banner">
+        <div class="container">
+            <h1 class="title">AVENGERS CHARACTER SEARCH</h1>
+        </div>
     </header>
-    <main>
-        <button id=Search>Search</button>
+    <main class="container">
+        <form class="search" onsubmit="return false;">
+            <label for="query" class="search-label">Search by Full Name or Alias</label>
+            <div class="search-row">
+                <input type="search" id="query" name="search" placeholder="Search for a superhero..." >
+                <button id="Search" class="btn" type="button">Search</button>
+            </div>
+        </form>
+        <section class="results" id="result-container">
+            <h2 class="results-heading">RESULT</h2>
+            <hr>
+            <div id="result"></div>
+        </section>
     </main>
-    <footer>
-    </footer>
+
     <script src="app.js"></script>
 </body>
 </html>
+
